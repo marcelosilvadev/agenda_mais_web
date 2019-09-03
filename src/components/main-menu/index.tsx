@@ -41,8 +41,9 @@ export default class MainMenu extends React.Component<Props> {
 
         <Menu color={'blue'} inverted={true} size='large' secondary={true} stackable={true}>
           <Menu.Item className='logo'>
-            TEMPLATE
+            AGENDA+
             </Menu.Item>
+
           <Menu.Item
             id='home-menu'
             name='home'
@@ -52,8 +53,35 @@ export default class MainMenu extends React.Component<Props> {
             Home
           </Menu.Item>
 
+          <Menu.Item
+            id='agenda-menu'
+            name='agenda'
+            active={activated === 'agenda'}
+            url='agenda'
+            onClick={this.handleItemClick}>
+            Agenda
+          </Menu.Item>
+
+          <Menu.Item
+            id='client-menu'
+            name='client'
+            active={activated === 'client'}
+            url='client'
+            onClick={this.handleItemClick}>
+            Clientes
+          </Menu.Item>
+
+          <Menu.Item
+            id='service-menu'
+            name='service'
+            active={activated === 'service'}
+            url='service'
+            onClick={this.handleItemClick}>
+            Serviços
+          </Menu.Item>
+
           <Menu.Menu position='right'>
-            <Dropdown item={true} text="Tio Patinhas">
+            <Dropdown item={true} text="Tatiana">
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={this.logout}>

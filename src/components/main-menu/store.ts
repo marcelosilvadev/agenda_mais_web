@@ -14,9 +14,19 @@ export default class MainMenuStore {
 
   routes: any[] = [
     {
-      title: 'Exemplo',
-      description: 'Exemplo de Descrição',
-      route: 'example',
+      title: 'Agenda',
+      description: 'Agenda de todos os horários marcados',
+      route: 'agenda',
+    },
+    {
+      title: 'Clientes',
+      description: 'Buscar e cadastrar novos clientes',
+      route: 'client',
+    },
+    {
+      title: 'Serviços',
+      description: 'Buscar e cadastrar novos serviços',
+      route: 'service',
     },
   ];
 
