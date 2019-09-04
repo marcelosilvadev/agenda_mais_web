@@ -17,6 +17,8 @@ export default class ClientStore {
 
   @observable showActiveScreen: boolean = true;
   @observable Clients: ClientInterface[] = [];
+  @observable date;
+  @observable zipcode: string = "";
 
   @action reset = () => {
     this.records = {
@@ -32,11 +34,23 @@ export default class ClientStore {
     const { id, value } = select || event.target;
     this.records[id] = value;
   };
-  
+
   @action handleActiveScreen = () => {
-    this.showActiveScreen = !this.showActiveScreen;    
+    this.showActiveScreen = !this.showActiveScreen;
   }
-  
+
+  @action handleDate = (date: Date | null) => {
+    this.date = date;
+  };
+
+  @action handleZipcode = async (event: any) => {
+    const { value } = event.target;
+
+    if (value === '' || value.length !== 8) {
+      return;
+    }
+  }
+
 }
 const client = new ClientStore();
 export { client };

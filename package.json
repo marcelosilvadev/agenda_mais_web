@@ -15,6 +15,7 @@
     "mobx-react-router": "^4.0.7",
     "moment-timezone": "^0.5.25",
     "react": "^16.9.0",
+    "react-datepicker": "^2.9.4",
     "react-dom": "^16.9.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.1.1",

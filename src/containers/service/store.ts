@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+import { ServiceInterface } from '../../interfaces/service.interface';
 
 export default class ServiceStore {
 
@@ -15,6 +16,7 @@ export default class ServiceStore {
         };
 
     @observable showActiveScreen: boolean = true;
+    @observable Services: ServiceInterface[] = [];
 
     @action reset = () => {
         this.records = {
@@ -30,9 +32,10 @@ export default class ServiceStore {
         const { id, value } = select || event.target;
         this.records[id] = value;
       };
-    
-    
-
+      
+      @action handleActiveScreen = () => {
+        this.showActiveScreen = !this.showActiveScreen;    
+      }
 }
 const service = new ServiceStore();
 export { service };
