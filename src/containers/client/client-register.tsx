@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Segment, Form, Header, Button, Icon } from 'semantic-ui-react';
+import { Container, Segment, Form, Header, Button, Icon, Dropdown, Input, Label, Table, Popup } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import ClientStore from './store';
 import CPFInput from '../../components/CPF';
@@ -15,11 +15,18 @@ interface Props {
   client: ClientStore
 }
 
+const statusOptions = [
+  { key: '0', value: 0, text: 'Corte' },
+  { key: '1', value: 1, text: 'Escova' },
+  { key: '2', value: 2, text: 'Maquiagem' },
+  { key: '3', value: 3, text: 'Unha' },
+]
+
 @observer
 export default class RegisterClient extends React.Component<Props>{
 
   render() {
-    const { date, handleDate, zipcode, handleZipcode } = this.props.client;
+    const { date, handleDate, zipcode, handleZipcode, Service, handleActiveScreen } = this.props.client;
     return (
       <Container>
         <Header color='blue' as='h2'>
@@ -130,6 +137,98 @@ export default class RegisterClient extends React.Component<Props>{
                 </Form.Field>
               </Form.Group>
             </Segment>
+            <Segment>
+              <Header as='h4' color={'blue'} content='Serviços' />
+              <Form.Group >
+                <Form.Field width={16}>
+                  <label>Serviços</label>
+                  <Dropdown
+                    id="servicos"
+                    placeholder='Serviços'
+                    clearable
+                    options={statusOptions}
+                    selection />
+                </Form.Field>
+                <Form.Field>
+                  <label>Valor</label>
+                  <Input
+                    labelPosition='right'
+                    type='text'
+                    placeholder='Valor'>
+                    <Label basic>R$</Label>
+                    <input />
+                    <Label>.00</Label>
+                  </Input>
+                </Form.Field>
+                <Form.Field >
+                  <label>Tempo</label>
+                  <Input
+                    labelPosition='right'
+                    type='text'
+                    placeholder='Tempo'>
+                    <input />
+                    <Label>min</Label>
+                  </Input>
+                </Form.Field>
+                <Form.Field className='no-label'>
+                  <Icon
+                    link
+                    circular
+                    inverted
+                    color='green'
+                    name='add'
+                    onClick={() => console.log('')}
+                  />
+                </Form.Field>
+              </Form.Group>
+              <Table celled >
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell >Serviço</Table.HeaderCell>
+                    <Table.HeaderCell >Valor</Table.HeaderCell>
+                    <Table.HeaderCell >Tempo</Table.HeaderCell>
+                    <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {
+                    Service.map((e, index) => {
+                      return (
+                        <Table.Row key={index}>
+                          <Table.Cell >{e.description}</Table.Cell>
+                          <Table.Cell >{e.value}</Table.Cell>
+                          <Table.Cell >{e.time}</Table.Cell>
+                          <Table.Cell width={1} textAlign='center'>
+                            <Popup content='Editar Serviço' trigger={
+                              <Icon
+                                size='large'
+                                name='edit'
+                                link
+                                color='blue'
+                                onClick={() => console.log('')}
+                              />
+                            }
+                            />
+                            <Popup content='Excluir Serviço' trigger={
+                              <Icon
+                                size='large'
+                                name='delete'
+                                link
+                                color='red'
+                                onClick={() => console.log('')}
+                              />
+                            }
+                            />
+                          </Table.Cell>
+                        </Table.Row>
+                      )
+                    })
+                  }
+                </Table.Body>
+              </Table>
+            </Segment>
+
+
             <Form.Group>
               <Form.Field>
                 <Button
@@ -138,7 +237,7 @@ export default class RegisterClient extends React.Component<Props>{
                   labelPosition='left'
                   color='grey'
                   size='small'
-                  onClick={() => console.log('')}>
+                  onClick={handleActiveScreen}>
                   <Icon name='arrow left' />
                   Voltar
                 </Button>

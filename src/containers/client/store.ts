@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { ClientInterface } from '../../interfaces/client.interface';
+import { ServiceInterface } from '../../interfaces/service.interface';
 
 export default class ClientStore {
 
@@ -19,6 +20,7 @@ export default class ClientStore {
   @observable Clients: ClientInterface[] = [];
   @observable date;
   @observable zipcode: string = "";
+  @observable Service: ServiceInterface[] = [];
 
   @action reset = () => {
     this.records = {
