@@ -16,3 +16,8 @@ div.no-label{
   margin-top: 24px !important;
 }
 
+#root > div.nav > div > div.right.menu > h4{
+  color: #ffffff !important;
+  margin-top: 11px !important;
+  font-size: 1.071429rem !important;
+}

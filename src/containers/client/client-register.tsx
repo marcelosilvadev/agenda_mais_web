@@ -4,29 +4,39 @@ import { observer } from 'mobx-react';
 import ClientStore from './store';
 import CPFInput from '../../components/CPF';
 import ReactDatePicker from "react-datepicker";
-
-
 import "react-datepicker/dist/react-datepicker.css";
 import { getDate } from '../../util';
 import ZipCodeInput from '../../components/CEP';
-
+import { maskDate } from '../../util/format.util';
 
 interface Props {
   client: ClientStore
 }
 
 const statusOptions = [
-  { key: '0', value: 0, text: 'Corte' },
-  { key: '1', value: 1, text: 'Escova' },
-  { key: '2', value: 2, text: 'Maquiagem' },
-  { key: '3', value: 3, text: 'Unha' },
+  { key: '0', value: 'Corte', text: 'Corte' },
+  { key: '1', value: 'Escova', text: 'Escova' },
+  { key: '2', value: 'Maquiagem', text: 'Maquiagem' },
+  { key: '3', value: 'Unha', text: 'Unha' },
 ]
 
 @observer
 export default class RegisterClient extends React.Component<Props>{
 
   render() {
-    const { date, handleDate, zipcode, handleZipcode, Service, handleActiveScreen } = this.props.client;
+    const {
+      handleChange,
+      createNewClient,
+      date,
+      handleDate,
+      Service,      
+      addService,
+      recordsClient,
+      handleBack,
+      deleteService,
+      editService,
+      services
+    } = this.props.client;
     return (
       <Container>
         <Header color='blue' as='h2'>
@@ -36,24 +46,27 @@ export default class RegisterClient extends React.Component<Props>{
           </Header.Content>
         </Header>
         <Segment>
-          <Form id='groupRegisterForm' onSubmit={() => console.log('')}>
+          <Form id='groupRegisterForm' onSubmit={createNewClient}>
             <Form.Group widths='equal'>
               <Form.Field width='16' required={true}>
                 <Form.Input
-                  id='name'
+                  id='recordsClient.name'
                   fluid
                   label='Nome do Cliente'
+                  value={recordsClient.name}
                   placeholder='Insira o nome do cliente...'
                   maxLength={45}
-                  onChange={() => console.log('')}
+                  onChange={handleChange}
                   required />
               </Form.Field>
               <Form.Field width='3' required={true}>
                 <label>Data de Nascimento</label>
                 <ReactDatePicker
+                  id='recordsClient.date'
                   required={true}
                   selected={getDate(date)}
                   onChange={handleDate}
+                  value={recordsClient.date === '' ? '' : maskDate(recordsClient.date)}
                   isClearable
                   dateFormat='dd/MM/yyyy'
                   placeholderText="01/01/2019"
@@ -65,16 +78,29 @@ export default class RegisterClient extends React.Component<Props>{
             <Form.Group widths='equal'>
               <Form.Field required={true}>
                 <CPFInput
-                  id='cpf'
+                  id='recordsClient.cpf'
                   required={true}
+                  value={recordsClient.cpf}
                   width={16}
-                  onChange={() => console.log('')} />
+                  onChange={handleChange} />
               </Form.Field>
               <Form.Field required={true} >
                 <Form.Input
-                  label='Email'
+                  id='recordsClient.email'
+                  label='email'
+                  value={recordsClient.email}
                   placeholder='joe@schmoe.com'
-                  required={true} />
+                  required={true}
+                  onChange={handleChange} />
+              </Form.Field>
+              <Form.Field required={true} >
+                <Form.Input
+                  id='recordsClient.phone'
+                  label='Contato'
+                  value={recordsClient.phone}
+                  placeholder='16 9 9236-2117'
+                  required={true}
+                  onChange={handleChange} />
               </Form.Field>
             </Form.Group>
             <Segment>
@@ -85,55 +111,60 @@ export default class RegisterClient extends React.Component<Props>{
                   required={true}>
                   <label>CEP:</label>
                   <ZipCodeInput
-                    id='form.address.zipcode'
-                    value={zipcode}
+                    id='recordsClient.address.cep'
+                    value={recordsClient.address.cep}
                     placeholder='Ex: 14407-416'
-                    onChange={handleZipcode}
+                    onChange={handleChange}
                     required={true}
                   />
                 </Form.Field>
                 <Form.Field >
                   <Form.Input
-                    id='rua'
+                    id='recordsClient.address.rua'
                     fluid
                     label='Rua'
+                    value={recordsClient.address.rua}
                     placeholder='Nome da Rua...'
-                    onChange={() => console.log('')} />
+                    onChange={handleChange} />
                 </Form.Field>
                 <Form.Field width='6'>
                   <Form.Input
-                    id='numero'
+                    id='recordsClient.address.numero'
                     fluid
                     maxLength={4}
+                    value={recordsClient.address.numero}
                     label='Número'
                     placeholder='Número da Casa...'
-                    onChange={() => console.log('')} />
+                    onChange={handleChange} />
                 </Form.Field>
               </Form.Group>
               <Form.Group widths='equal'>
                 <Form.Field>
                   <Form.Input
-                    id='bairro'
+                    id='recordsClient.address.bairro'
                     fluid
+                    value={recordsClient.address.bairro}
                     label='Bairro'
                     placeholder='Nome do Bairro...'
-                    onChange={() => console.log('')} />
+                    onChange={handleChange} />
                 </Form.Field>
                 <Form.Field >
                   <Form.Input
-                    id='cidade'
+                    id='recordsClient.address.cidade'
                     fluid
+                    value={recordsClient.address.cidade}
                     label='Cidade'
                     placeholder='Nome do Cidade...'
-                    onChange={() => console.log('')} />
+                    onChange={handleChange} />
                 </Form.Field>
                 <Form.Field >
                   <Form.Input
-                    id='estado'
+                    id='recordsClient.address.estado'
                     fluid
+                    value={recordsClient.address.estado}
                     label='Estado'
                     placeholder='Nome do Estado...'
-                    onChange={() => console.log('')} />
+                    onChange={handleChange} />
                 </Form.Field>
               </Form.Group>
             </Segment>
@@ -143,18 +174,23 @@ export default class RegisterClient extends React.Component<Props>{
                 <Form.Field width={16}>
                   <label>Serviços</label>
                   <Dropdown
-                    id="servicos"
+                    id="services.description"
                     placeholder='Serviços'
                     clearable
+                    value={services.description}
                     options={statusOptions}
-                    selection />
+                    selection
+                    onChange={handleChange} />
                 </Form.Field>
                 <Form.Field>
                   <label>Valor</label>
                   <Input
+                    id='services.value'
                     labelPosition='right'
                     type='text'
-                    placeholder='Valor'>
+                    value={services.value}
+                    placeholder='Valor'
+                    onChange={handleChange}>
                     <Label basic>R$</Label>
                     <input />
                     <Label>.00</Label>
@@ -163,9 +199,12 @@ export default class RegisterClient extends React.Component<Props>{
                 <Form.Field >
                   <label>Tempo</label>
                   <Input
+                    id='services.time'
                     labelPosition='right'
                     type='text'
-                    placeholder='Tempo'>
+                    value={services.time}
+                    placeholder='Tempo'
+                    onChange={handleChange}>
                     <input />
                     <Label>min</Label>
                   </Input>
@@ -177,7 +216,7 @@ export default class RegisterClient extends React.Component<Props>{
                     inverted
                     color='green'
                     name='add'
-                    onClick={() => console.log('')}
+                    onClick={addService}
                   />
                 </Form.Field>
               </Form.Group>
@@ -196,16 +235,16 @@ export default class RegisterClient extends React.Component<Props>{
                       return (
                         <Table.Row key={index}>
                           <Table.Cell >{e.description}</Table.Cell>
-                          <Table.Cell >{e.value}</Table.Cell>
-                          <Table.Cell >{e.time}</Table.Cell>
-                          <Table.Cell width={1} textAlign='center'>
+                          <Table.Cell >R${e.value}</Table.Cell>
+                          <Table.Cell >{e.time} min</Table.Cell>
+                          <Table.Cell singleLine width={1} textAlign='center'>
                             <Popup content='Editar Serviço' trigger={
                               <Icon
                                 size='large'
                                 name='edit'
                                 link
                                 color='blue'
-                                onClick={() => console.log('')}
+                                onClick={() => editService(e.description)}
                               />
                             }
                             />
@@ -215,7 +254,7 @@ export default class RegisterClient extends React.Component<Props>{
                                 name='delete'
                                 link
                                 color='red'
-                                onClick={() => console.log('')}
+                                onClick={() => deleteService(e.description)}
                               />
                             }
                             />
@@ -237,7 +276,7 @@ export default class RegisterClient extends React.Component<Props>{
                   labelPosition='left'
                   color='grey'
                   size='small'
-                  onClick={handleActiveScreen}>
+                  onClick={handleBack}>
                   <Icon name='arrow left' />
                   Voltar
                 </Button>
@@ -255,10 +294,8 @@ export default class RegisterClient extends React.Component<Props>{
                   Salvar
                   </Button>
               </Form.Field>
-
             </Form.Group>
           </Form>
-
         </Segment>
       </Container>
     )

@@ -60,3 +60,10 @@ export const toDecimal = (value: any, qtd = 2) => {
 export const getDateFromTimeString = (timeString: string) => {
   return new Date(`1970-01-01T${timeString}`);
 };
+
+export const maskDate = (date: string) => {
+  let aux = date.split("T");
+  let aux2 = aux[0].split("-");
+  let newDate = aux2[2] + "/" + aux2[1] + "/" + aux2[0];
+  return newDate;
+}

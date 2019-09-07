@@ -10,12 +10,18 @@ interface Props {
 
 @observer
 export default class ListClient extends React.Component<Props>{
+  componentDidMount() {
+    const { initClient } = this.props.client;
+    initClient();
+  }
 
   render() {
     const {
       Clients,
       handleChange,
       handleActiveScreen,
+      viewClient,
+      deleteClient
     } = this.props.client;
 
     const limits = [10, 30, 50].map((limit: number) => {
@@ -101,8 +107,18 @@ export default class ListClient extends React.Component<Props>{
                             size='large'
                             name='eye'
                             link
-                            color={e.status_id === 1 ? 'blue' : 'grey'}
-                            onClick={() => console.log("Vizualizar")}
+                            color='blue'
+                            onClick={() => viewClient(e.id)}
+                          />
+                        }
+                        />
+                        <Popup content='Excluir serviço' trigger={
+                          <Icon
+                            size='large'
+                            name='trash'
+                            link
+                            color='red'
+                            onClick={() => deleteClient(e.id)}
                           />
                         }
                         />
@@ -125,7 +141,7 @@ export default class ListClient extends React.Component<Props>{
                     defaultValue={10}
                     selection
                   />
-                  <Label size='small'> 10 de 10 registros</Label>
+                  <Label size='small'>{Clients.length} de 10 registros</Label>
 
                   <Pagination floated={'right'}
                     boundaryRange={1}

@@ -10,12 +10,17 @@ interface Props {
 
 @observer
 export default class ListService extends React.Component<Props>{
-
+  componentDidMount(){
+    const{ initService } = this.props.service;
+    initService();
+  }
   render() {    
     const {
       Services,
       handleChange,
       handleActiveScreen,
+      viewService,
+      deleteService
     } = this.props.service;
 
     const limits = [10, 30, 50].map((limit: number) => {
@@ -94,7 +99,7 @@ export default class ListService extends React.Component<Props>{
                 return (
                   <Table.Row key={index}>
                     <Table.Cell singleLine >{e.description}</Table.Cell>
-                    <Table.Cell >{e.value}</Table.Cell>
+                    <Table.Cell >R${e.value}.00</Table.Cell>
                     <Table.Cell >{e.time} min</Table.Cell>
                     <Table.Cell width={1} textAlign='center'>
                       <Popup content='Visualizar serviço' trigger={
@@ -102,8 +107,18 @@ export default class ListService extends React.Component<Props>{
                           size='large'
                           name='eye'
                           link
-                          color={e.status_id === 1 ? 'blue' : 'grey'}
-                          onClick={() => console.log("Vizualizar")}
+                          color='blue'
+                          onClick={() => viewService(e.id)}
+                        />
+                      }
+                      />
+                      <Popup content='Excluir serviço' trigger={
+                        <Icon
+                          size='large'
+                          name='trash'
+                          link
+                          color='red'
+                          onClick={() => deleteService(e.id)}
                         />
                       }
                       />
@@ -126,7 +141,7 @@ export default class ListService extends React.Component<Props>{
                   defaultValue={10}
                   selection
                 />
-                <Label size='small'> 10 de 10 registros</Label>
+                <Label size='small'> {Services.length} de 10 registros</Label>
 
                 <Pagination floated={'right'}
                   boundaryRange={1}

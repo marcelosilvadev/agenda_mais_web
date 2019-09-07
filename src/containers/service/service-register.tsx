@@ -12,7 +12,12 @@ interface Props {
 export default class RegisterService extends React.Component<Props>{
 
   render() {
-    const { handleActiveScreen } = this.props.service;
+    const { 
+      handleBack,
+      handleChange,
+      addNewService,
+      recordsService
+     } = this.props.service;
     return (
       <Container>
         <Header color='blue' as='h2'>
@@ -22,21 +27,25 @@ export default class RegisterService extends React.Component<Props>{
           </Header.Content>
         </Header>
         <Segment>
-          <Form id='groupRegisterForm' onSubmit={() => console.log('')}>
+          <Form id='groupRegisterForm' onSubmit={addNewService}>
             <Form.Group widths='equal'>
               <Form.Field >
                 <Form.Input
-                  id='description'
+                  id='recordsService.description'
                   fluid
                   label='Descrição'
+                  value={recordsService.description}
                   placeholder='Descrição...'
-                  onChange={() => console.log('')} />
+                  onChange={handleChange} />
               </Form.Field>
               <Form.Field>
                 <label>Valor Padrão</label>
                 <Input
+                  id='recordsService.value'
                   labelPosition='right'
                   type='text'
+                  value={recordsService.value}
+                  onChange={handleChange}
                   placeholder='Valor padrão'>
                   <Label basic>R$</Label>
                   <input />
@@ -46,8 +55,11 @@ export default class RegisterService extends React.Component<Props>{
               <Form.Field >
                 <label>Tempo Padrão</label>
                 <Input
+                  id='recordsService.time'
                   labelPosition='right'
                   type='text'
+                  value={recordsService.time}
+                  onChange={handleChange}
                   placeholder='Tempo padrão'>
                   <input />
                   <Label>min</Label>
@@ -62,7 +74,7 @@ export default class RegisterService extends React.Component<Props>{
                   labelPosition='left'
                   color='grey'
                   size='small'
-                  onClick={handleActiveScreen}>
+                  onClick={handleBack}>
                   <Icon name='arrow left' />
                   Voltar
                 </Button>

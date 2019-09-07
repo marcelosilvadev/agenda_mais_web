@@ -81,7 +81,8 @@ export default class MainMenu extends React.Component<Props> {
           </Menu.Item>
 
           <Menu.Menu position='right'>
-            <Dropdown item={true} text="Tatiana">
+          
+            <Dropdown item={true} text="Olá, Tatiana">
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={this.logout}>
