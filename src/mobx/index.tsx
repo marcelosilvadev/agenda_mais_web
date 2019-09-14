@@ -4,6 +4,7 @@ import { home } from '../containers/home/store';
 import { client } from '../containers/client/store';
 import { service } from '../containers/service/store';
 import { agenda } from '../containers/agenda/store';
+import { login } from '../containers/login/store'
 
 
 export {
@@ -12,5 +13,6 @@ export {
   home,
   client,
   service,
-  agenda
+  agenda,
+  login
 };

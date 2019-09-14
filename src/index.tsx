@@ -12,6 +12,9 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Loading from './components/loading';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const rootElement = document.getElementById('root');
 const browserHistory = createBrowserHistory();
@@ -24,6 +27,7 @@ ReactDOM.render(
       <Router history={history}>
         <Routes />
       </Router>
+      <ToastContainer />
     </>
   </Provider>,
   rootElement

@@ -3,6 +3,7 @@ import MenuStore from './store';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
 import NewRouterStore from '../../mobx/router.store';
+import { logOff } from '../../util/auth.util';
 
 interface Props {
   mainMenu?: MenuStore;
@@ -27,8 +28,8 @@ export default class MainMenu extends React.Component<Props> {
   logout = () => {
 
     const { setHistory } = this.props.router!;
-
-    return setHistory('home');
+    logOff();
+    return setHistory('logout');
 
   }
 

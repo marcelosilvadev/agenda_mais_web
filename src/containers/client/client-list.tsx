@@ -102,7 +102,7 @@ export default class ListClient extends React.Component<Props>{
                       <Table.Cell singleLine >{e.name}</Table.Cell>
                       <Table.Cell >{e.phone}</Table.Cell>
                       <Table.Cell width={1} textAlign='center'>
-                        <Popup content='Visualizar Grupo' trigger={
+                        <Popup content='Visualizar Cliente' trigger={
                           <Icon
                             size='large'
                             name='eye'
@@ -112,7 +112,7 @@ export default class ListClient extends React.Component<Props>{
                           />
                         }
                         />
-                        <Popup content='Excluir serviço' trigger={
+                        <Popup content='Excluir cliente' trigger={
                           <Icon
                             size='large'
                             name='trash'

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Header, Segment, Form, Popup, Button, Table, Icon } from 'semantic-ui-react';
+import { Container, Header, Segment, Form, Popup, Button, Table, Icon, Modal } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import AgendaStore from './store';
 import ReactDatePicker from "react-datepicker";
@@ -11,12 +11,15 @@ interface Props {
 
 @observer
 export default class ListAgenda extends React.Component<Props>{
-  componentDidMount(){
-    const{initAgenda} = this.props.agenda;
+  componentDidMount() {
+    const { initAgenda } = this.props.agenda;
     initAgenda();
-  }
+  }  
+
+  close = () => this.setState({ open: false })
+
   render() {
-    const { date, handleDate, Agenda } = this.props.agenda;
+    const { date, handleDate, Agenda, showActiveModal, deleteAgenda, handleModal, search } = this.props.agenda;
     return (
       <Container>
         <Header color='blue' as='h2'>
@@ -36,7 +39,7 @@ export default class ListAgenda extends React.Component<Props>{
                   onChange={handleDate}
                   isClearable
                   dateFormat='dd/MM/yyyy'
-                  placeholderText="01/01/2019"                  
+                  placeholderText="01/01/2019"
                 />
               </Form.Field>
               <Popup content='Pesquisar agendamentos' trigger={
@@ -47,7 +50,7 @@ export default class ListAgenda extends React.Component<Props>{
                     icon='search'
                     size='small'
                     labelPosition='left'
-                    onClick={() => console.log("")}
+                    onClick={() => search()}
                     primary={true}
                   />
                 </Form.Field>
@@ -87,7 +90,7 @@ export default class ListAgenda extends React.Component<Props>{
                             name='dont'
                             link
                             color='red'
-                            onClick={() => console.log("Vizualizar")}
+                            onClick={()=>handleModal(e.id)}
                           />
                         }
                         />
@@ -99,6 +102,27 @@ export default class ListAgenda extends React.Component<Props>{
             </Table.Body>
           </Table>
         </Segment>
+        <Modal
+          open={showActiveModal}          
+          onClose={() => handleModal('')}
+        >
+          <Modal.Header>Atenção!</Modal.Header>
+          <Modal.Content>
+            <p>Certeza que deseja cancelar este agendamento?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={() => handleModal('')} negative>
+              Não
+            </Button>
+            <Button
+              onClick={() => deleteAgenda()}
+              positive
+              labelPosition='right'
+              icon='checkmark'
+              content='Sim'
+            />
+          </Modal.Actions>
+        </Modal>
       </Container>
     )
   }

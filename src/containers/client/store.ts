@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { ClientInterface } from '../../interfaces/client.interface';
 import { ServiceInterface } from '../../interfaces/service.interface';
 import { assign } from '../../util';
+import { success } from '../../components/notifications';
 
 export default class ClientStore {
 
@@ -138,6 +139,7 @@ export default class ClientStore {
         status_id: 1
       })
       this.resetService();
+      success("Serviço atualizado com sucesso!")
     } else {
       let count = this.Service.length + 1;
       this.Service.push({
@@ -147,6 +149,7 @@ export default class ClientStore {
         time: this.services.time,
         status_id: 1
       })
+      success("Serviço inserido com sucesso!")
     }
   }
 
@@ -177,6 +180,7 @@ export default class ClientStore {
     })
     }
     this.handleActiveScreen();
+    success("Cliente cadastrado com sucesso!")
     this.reset();
   }
 
@@ -298,10 +302,12 @@ export default class ClientStore {
 
   @action deleteClient = (id: string) => {
     this.Clients = this.Clients.filter(s => s.id !== id);
+    success("Cliente deletado com sucesso!")
   }
 
   @action deleteService = (desc: string) => {
     this.Service = this.Service.filter(s => s.description !== desc)
+    success("Serviço deletado com sucesso!")
   }
 
   @action editService = (desc: string) => {
@@ -311,7 +317,7 @@ export default class ClientStore {
       description: service[0].description,
       value: service[0].value,
       time: service[0].time,
-    }
+    }    
   }
 }
 const client = new ClientStore();

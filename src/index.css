@@ -12,12 +12,24 @@ code {
     monospace;
 }
 
-div.no-label{
+div.no-label {
   margin-top: 24px !important;
 }
 
-#root > div.nav > div > div.right.menu > h4{
+#root>div.nav>div>div.right.menu>h4 {
   color: #ffffff !important;
   margin-top: 11px !important;
   font-size: 1.071429rem !important;
+}
+
+.login {
+  background-color: #0083ca;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 100%;
+  padding: 40px;
+  overflow: auto;
+  height: 100vh;
 }
