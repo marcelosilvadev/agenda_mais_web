@@ -27,13 +27,13 @@ export default class Home extends React.Component<Props> {
 
     return (
       <Container>
-        <Header color='blue' as='h2'>
+        <Header color='pink' as='h2'>
           <Header.Content>
             O que deseja acessar?
           </Header.Content>
         </Header>
-        <Card.Group itemsPerRow={2}>
-          {routes.map(e => <Card id={e.route} fluid key={e.route} color='blue' header={e.title} description={e.description} onClick={() => { this.redirect(e.route); }} />)}
+        <Card.Group itemsPerRow={2} >
+          {routes.map(e => <Card id={e.route} fluid key={e.route} color='pink' header={e.title} description={e.description} onClick={() => { this.redirect(e.route); }} />)}
         </Card.Group>
       </Container>
 

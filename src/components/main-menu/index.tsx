@@ -40,12 +40,12 @@ export default class MainMenu extends React.Component<Props> {
     return (
       <div className={'nav'}>
 
-        <Menu color={'blue'} inverted={true} size='large' secondary={true} stackable={true}>
+        <Menu color={'pink'} inverted={true} size='large' secondary={true} stackable={true}>
           <Menu.Item className='logo'>
             AGENDA+
             </Menu.Item>
 
-          <Menu.Item
+          <Menu.Item          
             id='home-menu'
             name='home'
             active={activated === 'home'}

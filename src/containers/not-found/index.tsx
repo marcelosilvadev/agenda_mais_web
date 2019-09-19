@@ -15,7 +15,7 @@ export default class NotFound extends React.Component<Props> {
   render() {
     return (
       <Container>
-        <Header as='h1' color='blue'>Oops!</Header>
+        <Header as='h1' color='pink'>Oops!</Header>
         <Grid>
           <Grid.Row>
             <Grid.Column width={12}>

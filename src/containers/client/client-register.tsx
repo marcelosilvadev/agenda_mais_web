@@ -39,7 +39,7 @@ export default class RegisterClient extends React.Component<Props>{
     } = this.props.client;
     return (
       <Container>
-        <Header color='blue' as='h2'>
+        <Header color='pink' as='h2'>
           <Header.Content>
             Cadastro de Clientes
                  <Header.Subheader>Cadastro de informações clientes personalizados.</Header.Subheader>
@@ -104,7 +104,7 @@ export default class RegisterClient extends React.Component<Props>{
               </Form.Field>
             </Form.Group>
             <Segment>
-              <Header as='h4' color={'blue'} content='Endereço' />
+              <Header as='h4' color={'pink'} content='Endereço' />
               <Form.Group widths='equal'>
                 <Form.Field
                   width={4}
@@ -169,7 +169,7 @@ export default class RegisterClient extends React.Component<Props>{
               </Form.Group>
             </Segment>
             <Segment>
-              <Header as='h4' color={'blue'} content='Serviços' />
+              <Header as='h4' color={'pink'} content='Serviços' />
               <Form.Group >
                 <Form.Field width={16}>
                   <label>Serviços</label>

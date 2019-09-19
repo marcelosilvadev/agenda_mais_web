@@ -20,7 +20,7 @@ export default class RegisterService extends React.Component<Props>{
      } = this.props.service;
     return (
       <Container>
-        <Header color='blue' as='h2'>
+        <Header color='pink' as='h2'>
           <Header.Content>
             Cadastro de Serviços
                  <Header.Subheader>Cadastro de serviços detalhados.</Header.Subheader>

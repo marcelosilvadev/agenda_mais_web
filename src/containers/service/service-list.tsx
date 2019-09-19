@@ -31,7 +31,7 @@ export default class ListService extends React.Component<Props>{
     });
     return (
       <Container>
-      <Header color='blue' as='h2'>
+      <Header color='pink' as='h2'>
         <Header.Content>
           Serviços
                <Header.Subheader>Lista de serviços cadastrados.</Header.Subheader>

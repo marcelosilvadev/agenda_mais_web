@@ -67,3 +67,8 @@ export const maskDate = (date: string) => {
   let newDate = aux2[2] + "/" + aux2[1] + "/" + aux2[0];
   return newDate;
 }
+
+export const formatPhone = (phone: string) => {
+  var phones = phone.split("");
+  return ('(' + phones[0] + phones[1] + ')' + phones[2] + ' ' + phones[3] + phones[4] + phones[5] + phones[6] + '-' + phones[7] + phones[8] + phones[9] + phones[10])
+}

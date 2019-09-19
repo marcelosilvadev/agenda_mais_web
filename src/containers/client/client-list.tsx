@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Container, Segment, Table, Icon, Pagination, Label, Dropdown, Popup, Form, Button, Header } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import ClientStore from './store';
+import { formatPhone } from '../../util/format.util';
 
 
 interface Props {
@@ -33,7 +34,7 @@ export default class ListClient extends React.Component<Props>{
 
     return (
       <Container>
-        <Header color='blue' as='h2'>
+        <Header color='pink' as='h2'>
           <Header.Content>
             Clientes
                  <Header.Subheader>Lista de clientes cadastrados.</Header.Subheader>
@@ -100,7 +101,7 @@ export default class ListClient extends React.Component<Props>{
                   return (
                     <Table.Row key={index}>
                       <Table.Cell singleLine >{e.name}</Table.Cell>
-                      <Table.Cell >{e.phone}</Table.Cell>
+                      <Table.Cell >{formatPhone(e.phone)}</Table.Cell>
                       <Table.Cell width={1} textAlign='center'>
                         <Popup content='Visualizar Cliente' trigger={
                           <Icon
