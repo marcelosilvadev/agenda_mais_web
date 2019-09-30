@@ -120,7 +120,7 @@ export default class ClientStore {
   }
 
   @action handleActiveScreen = () => {
-    this.showActiveScreen = !this.showActiveScreen;
+    this.showActiveScreen = !this.showActiveScreen;    
   }
 
   @action handleDate = (date: Date | null) => {
@@ -155,29 +155,29 @@ export default class ClientStore {
 
   @action createNewClient = () => {
     console.log(JSON.parse(JSON.stringify(this.recordsClient)));
-    if(this.recordsClient.codigo){
-      
+    if (this.recordsClient.codigo) {
+
     } else {
 
-    let count = this.Clients.length + 1;
-    this.Clients.push({
-      id: count.toString(),
-      name: this.recordsClient.name,
-      date: this.recordsClient.date,
-      cpf: this.recordsClient.cpf,
-      email: this.recordsClient.email,
-      phone: this.recordsClient.phone,
-      address: {
-        cep: this.recordsClient.address.cep,
-        rua: this.recordsClient.address.rua,
-        numero: this.recordsClient.address.numero,
-        bairro: this.recordsClient.address.bairro,
-        cidade: this.recordsClient.address.cidade,
-        estado: this.recordsClient.address.estado,
-      },
-      service: this.Service,
-      status: 1
-    })
+      let count = this.Clients.length + 1;
+      this.Clients.push({
+        id: count.toString(),
+        name: this.recordsClient.name,
+        date: this.recordsClient.date,
+        cpf: this.recordsClient.cpf,
+        email: this.recordsClient.email,
+        phone: this.recordsClient.phone,
+        address: {
+          cep: this.recordsClient.address.cep,
+          rua: this.recordsClient.address.rua,
+          numero: this.recordsClient.address.numero,
+          bairro: this.recordsClient.address.bairro,
+          cidade: this.recordsClient.address.cidade,
+          estado: this.recordsClient.address.estado,
+        },
+        service: this.Service,
+        status: 1
+      })
     }
     this.handleActiveScreen();
     success("Cliente cadastrado com sucesso!")
@@ -293,11 +293,10 @@ export default class ClientStore {
         this.Clients.push(c);
       })
       this.init = 1;
+      services.map(s => {
+        this.Service.push(s)
+      })
     }
-    services.map(s => {
-      this.Service.push(s)
-    })
-
   }
 
   @action deleteClient = (id: string) => {
@@ -317,7 +316,33 @@ export default class ClientStore {
       description: service[0].description,
       value: service[0].value,
       time: service[0].time,
-    }    
+    }
+  }
+
+  @action searchClient = () => {
+    this.Clients = [];
+    let clients = [{
+      id: '1',
+      name: 'Marcelo de Andrade Silva',
+      date: '1997-12-26T03:00:00.000Z',
+      cpf: '44807756842',
+      email: 'marcelo.silva@luizalabs.com',
+      phone: '16992362117',
+      address: {
+        cep: '14403734',
+        rua: 'João Mauricio de Souza',
+        numero: '3893',
+        bairro: 'Samello Woods',
+        cidade: 'Franca',
+        estado: 'São Paulo',
+      },
+      service: [],
+      status: 1
+    },
+    ]
+    clients.map(c => {
+      this.Clients.push(c);
+    })
   }
 }
 const client = new ClientStore();

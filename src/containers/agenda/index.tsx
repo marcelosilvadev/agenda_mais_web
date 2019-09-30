@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react';
 import AgendaStore from './store'
 
 import ListAgenda from './agenda-list';
+import RegisterAgenda from './agenda-register';
 
 interface Props {
   agenda: AgendaStore
@@ -20,8 +21,7 @@ export default class Client extends React.Component<Props>{
           showActiveScreen ?
             <ListAgenda {...this.props} />
             :
-            <Container>
-            </Container>
+            <RegisterAgenda {...this.props}/>
         }
       </Container>
     )

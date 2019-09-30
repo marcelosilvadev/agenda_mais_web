@@ -19,10 +19,10 @@ export default class ListAgenda extends React.Component<Props>{
   close = () => this.setState({ open: false })
 
   render() {
-    const { date, handleDate, Agenda, showActiveModal, deleteAgenda, handleModal, search } = this.props.agenda;
+    const { date, handleDate, Agenda, showActiveModal, deleteAgenda, handleModal, search, handleActiveScreen } = this.props.agenda;
     return (
       <Container>
-        <Header color='blue' as='h2'>
+        <Header color='pink' as='h2'>
           <Header.Content>
             Agenda
                  <Header.Subheader>Agenda de serviços agendados.</Header.Subheader>
@@ -52,6 +52,20 @@ export default class ListAgenda extends React.Component<Props>{
                     labelPosition='left'
                     onClick={() => search()}
                     primary={true}
+                  />
+                </Form.Field>
+              }
+              />
+              <Popup content='Novo agendamento' trigger={
+                <Form.Field width={2} className='no-label' >
+                  <Button
+                    title='Novo'
+                    content='Novo'
+                    icon='add'
+                    size='small'
+                    color='green'
+                    labelPosition='left'
+                    onClick={() => handleActiveScreen()}                    
                   />
                 </Form.Field>
               }

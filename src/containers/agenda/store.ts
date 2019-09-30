@@ -7,14 +7,22 @@ export default class AgendaStore {
 
   @observable records: {
     codigo: number
-    name: string
-    status: number
-    allow_update: boolean
+    data: string
+    nome: string
+    hora: string
+    telefone: string
+    servico: string
+    tempo: string
+    valor: string
   } = {
       codigo: 0,
-      name: '',
-      status: 1,
-      allow_update: true
+      data: '',
+      nome: '',
+      hora: '',
+      telefone: '',
+      servico: '',
+      tempo: '',
+      valor: ''
     };
 
   @observable showActiveScreen: boolean = true;
@@ -27,18 +35,32 @@ export default class AgendaStore {
   @action reset = () => {
     this.records = {
       codigo: 0,
-      name: '',
-      status: 1,
-      allow_update: true
+      data: '',
+      nome: '',
+      hora: '',
+      telefone: '',
+      servico: '',
+      tempo: '',
+      valor: ''
     };
     this.showActiveScreen = true;
     this.idAgenda = '';
+  }
+
+  @action handleBack = () => {
+    this.handleActiveScreen();
+    this.reset();
   }
 
   @action handleChange = (event: any, select?: any) => {
     const { id, value } = select || event.target;
     this.records[id] = value;
   };
+
+
+  @action handleActiveScreen = () => {
+    this.showActiveScreen = !this.showActiveScreen;
+  }
 
   @action handleDate = (date: Date | null) => {
     this.date = date;
@@ -49,16 +71,16 @@ export default class AgendaStore {
     this.showActiveModal = !this.showActiveModal;
   }
 
-  @action deleteAgenda = () => { 
-    if(this.idAgenda !== ''){
+  @action deleteAgenda = () => {
+    if (this.idAgenda !== '') {
       this.Agenda = this.Agenda.filter(s => s.id !== this.idAgenda);
       this.idAgenda = '';
       this.handleModal('');
       success("Agendamento deletado com sucesso !")
-    }   
-    
+    }
+
   }
-  
+
   @action search = () => {
     this.Agenda = [];
     let agenda = [
@@ -133,7 +155,53 @@ export default class AgendaStore {
       this.init = 1;
     }
   }
-
+  @action createNewSchedule = () => {
+    this.Agenda = [];
+    let agenda = [
+      {
+        id: '1',
+        hour: '13:00',
+        service: 'Corte',
+        time: '40 min',
+        value: 'R$ 50.00',
+        client: 'Marcelo de Andrade Silva',
+        phone: '(16)9 9236-2117'
+      },
+      {
+        id: '2',
+        hour: '13:40',
+        service: 'Plastica',
+        time: '60 min',
+        value: 'R$ 150.00',
+        client: 'Tatiana Carolina de Andrade Silva',
+        phone: '(16)9 9212-3366'
+      },
+      {
+        id: '3',
+        hour: '14:40',
+        service: 'Escova',
+        time: '20 min',
+        value: 'R$ 50.00',
+        client: 'Ana Laura Tassoni da Silva',
+        phone: '(16)9 9239-7604'
+      },
+      {
+        id: '4',
+        hour: '17:30',
+        service: 'Corte',
+        time: '25 min',
+        value: 'R$ 30.00',
+        client: 'Jean Carlo Alves Ferreira',
+        phone: '(16)9 9939-6677'
+      }
+    ]
+    agenda.map(a => {
+      this.Agenda.push(a)
+    })
+    success("Agendamento criado com sucesso");
+    this.handleActiveScreen()
+  }
+  
 
 }
 const agenda = new AgendaStore();

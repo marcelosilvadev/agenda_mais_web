@@ -22,7 +22,8 @@ export default class ListClient extends React.Component<Props>{
       handleChange,
       handleActiveScreen,
       viewClient,
-      deleteClient
+      deleteClient,
+      searchClient
     } = this.props.client;
 
     const limits = [10, 30, 50].map((limit: number) => {
@@ -60,7 +61,7 @@ export default class ListClient extends React.Component<Props>{
                     icon='search'
                     size='small'
                     labelPosition='left'
-                    onClick={() => console.log("")}
+                    onClick={searchClient}
                     primary={true}
                   />
                 </Form.Field>
