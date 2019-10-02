@@ -156,7 +156,25 @@ export default class ClientStore {
   @action createNewClient = () => {
     console.log(JSON.parse(JSON.stringify(this.recordsClient)));
     if (this.recordsClient.codigo) {
-
+      this.Clients[0] = {
+        id: this.recordsClient.codigo,
+        name: this.recordsClient.name,
+        date: this.recordsClient.date,
+        cpf: this.recordsClient.cpf,
+        email: this.recordsClient.email,
+        phone: this.recordsClient.phone,
+        address: {
+          cep: this.recordsClient.address.cep,
+          rua: this.recordsClient.address.rua,
+          numero: this.recordsClient.address.numero,
+          bairro: this.recordsClient.address.bairro,
+          cidade: this.recordsClient.address.cidade,
+          estado: this.recordsClient.address.estado,
+        },
+        service: this.Service,
+        status: 1
+      }
+      success("Cliente atualizado com sucesso!")
     } else {
 
       let count = this.Clients.length + 1;
@@ -178,9 +196,10 @@ export default class ClientStore {
         service: this.Service,
         status: 1
       })
+      success("Cliente cadastrado com sucesso!")
     }
     this.handleActiveScreen();
-    success("Cliente cadastrado com sucesso!")
+    
     this.reset();
   }
 
@@ -233,7 +252,7 @@ export default class ClientStore {
         status_id: 1
       }
     ]
-    if (!this.init) {
+    if (this.init === 0) {
 
       let clients = [{
         id: '1',
@@ -257,9 +276,9 @@ export default class ClientStore {
         id: '2',
         name: 'Jean Carlo Alves Ferreira',
         date: '1997-12-26T03:00:00.000Z',
-        cpf: '44807756842',
+        cpf: '34546756842',
         email: 'jean.carlo@hotmail.com',
-        phone: '16992362117',
+        phone: '16999396677',
         address: {
           cep: '14403734',
           rua: 'João Mauricio de Souza',
@@ -277,7 +296,7 @@ export default class ClientStore {
         date: '1997-12-26T03:00:00.000Z',
         cpf: '44807756842',
         email: 'ana.laura@hotmail.com',
-        phone: '16992362117',
+        phone: '16992397604',
         address: {
           cep: '14403734',
           rua: 'João Mauricio de Souza',
@@ -323,11 +342,11 @@ export default class ClientStore {
     this.Clients = [];
     let clients = [{
       id: '1',
-      name: 'Marcelo de Andrade Silva',
+      name: 'Marcelo de Andrade Silva Tassoni',
       date: '1997-12-26T03:00:00.000Z',
       cpf: '44807756842',
       email: 'marcelo.silva@luizalabs.com',
-      phone: '16992362117',
+      phone: '16992123366',
       address: {
         cep: '14403734',
         rua: 'João Mauricio de Souza',
