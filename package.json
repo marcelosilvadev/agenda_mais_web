@@ -15,7 +15,7 @@
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
     "mobx-react-router": "^4.0.7",
-    "moment-timezone": "^0.5.25",
+    "moment-timezone": "^0.5.35",
     "react": "^16.9.0",
     "react-big-calendar": "^0.22.0",
     "react-datepicker": "^2.9.4",
